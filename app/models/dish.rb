@@ -10,4 +10,12 @@
 #
 
 class Dish < ApplicationRecord
+  def bookmarks
+    return Bookmark.where({ :dish_id => self.id }).order({ :created_at => :asc })
+  end
+
+  def experts
+    array_of_venues = self.bookmarks.pluck(:venue_id)
+    return Venue.where({ :id => array_of_venues}).order({ :created_at => :asc })
+  end
 end
