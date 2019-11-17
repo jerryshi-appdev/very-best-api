@@ -34,6 +34,11 @@ class ApplicationController < ActionController::Base
     render({ :plain => v.to_json})
   end
 
+  def return_venue
+    v = Venue.where({ :id => params.fetch(:venue_id)}).first
+    render({ :plain => v.to_json})
+  end
+
   def return_user_array
     u = User.all
     render({ :plain => u.to_json})
@@ -63,6 +68,11 @@ class ApplicationController < ActionController::Base
     else
       render({ :plain => u.bookmarks.where({ :dish_id => dish_id }).to_json})
     end    
+  end
+
+  def return_dish_bookmarks
+    d = Dish.where({ :id => params.fetch(:dish_id)}).first
+    render({ :plain => d.bookmarks.to_json})  
   end
 
   def return_venue_bookmarks
